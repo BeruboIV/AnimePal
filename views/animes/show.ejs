@@ -1,0 +1,21 @@
+<%- include("../partials/navbar") %> 
+
+    <body>
+        <h1><%= anime.title %></h1>
+        <h2><%= anime.character %></h2>
+        <img src="<%= anime.image %> " alt="" style="width: 800px" />
+        <p><%= anime.description %></p>
+        <footer>
+            <a href="/animes/<%= anime._id %>/edit"> Edit </a>
+            <br />
+            <form
+                action="/animes/<%= anime._id %>?_method=DELETE"
+                method="post"
+            >
+                <button>Delete</button>
+            </form>
+            <a href="/animes">All Animes</a>
+        </footer>
+        <img src="https://api.jikan.moe/v3/anime/1/pictures" alt="" />
+    </body>
+</html>

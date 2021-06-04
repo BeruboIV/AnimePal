@@ -1,0 +1,33 @@
+<%- include("../partials/navbar") %> 
+
+    <body>
+        <h1>Edit Anime</h1>
+        <form
+            action="/campgrounds/<%= anime._id %>?_method=PUT"
+            method="POST"
+        >
+            <div>
+                <label for="title">Title</label>
+                <input
+                    type="text"
+                    id="title"
+                    name="anime[title]"
+                    value="<%= anime.title %>"
+                />
+            </div>
+            <br />
+            <div>
+                <label for="character">Character</label>
+                <input
+                    type="text"
+                    id="character"
+                    name="anime[character]"
+                    value="<%= anime.character %>"
+                />
+            </div>
+            <br />
+            <button>Update Anime</button>
+        </form>
+        <a href="/animes/<%= anime._id %>">Back to Anime</a>
+    </body>
+</html>

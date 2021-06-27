@@ -1,31 +1,37 @@
 <%- include("../partials/navbar") %>
-<link rel="stylesheet" href="./new.css" />
+<link rel="stylesheet" href="/CSS/new.css" />
 <body>
     <div class="row">
         <h2>New topic</h2>
         <form action="/animes" method="POST">
             <div>
                 <label for="title"><h6>Title:</h6></label>
-                <br>
-                <input type="text" id="title" name="anime[title]" required/>
+                <br />
+                <input type="text" id="title" name="anime[title]" required />
             </div>
             <br />
             <div>
                 <label for="description"><h6>Description:</h6></label>
-                <br>
+                <br />
                 <!-- <input type="text" id="description" name="anime[description]" /> -->
-                <textarea name="anime[description]" id="description" cols="130" rows="10" required></textarea>
+                <textarea
+                    name="anime[description]"
+                    id="description"
+                    cols="130"
+                    rows="10"
+                    required
+                ></textarea>
             </div>
-            <br>
+            <br />
             <div>
                 <label for="genre"><h6>Genre:</h6></label>
-                <br>
-                <input type="text" id="genre" name="anime[genre]" required/>
+                <br />
+                <input type="text" id="genre" name="anime[genre]" required />
             </div>
             <br />
             <button class="btn btn-success">Add Anime</button>
         </form>
-        <!-- <a href="/animes">All Animes</a>
+        <!-- <a href="/animes">All Animes</a> -->
     </div>
     <%- include("../partials/footer") %>
 </body>

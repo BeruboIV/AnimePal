@@ -1,13 +1,12 @@
-<%- include("../partials/navbar") %> 
-
-    <body>
-        <h1>Edit Anime</h1>
-        <form
-            action="/campgrounds/<%= anime._id %>?_method=PUT"
-            method="POST"
-        >
+<%- include("../partials/navbar") %>
+<link rel="stylesheet" href="/CSS/edit.css" />
+<body>
+    <div class="row">
+        <h2>Edit Anime</h2>
+        <form action="/animes/<%= anime._id %>?_method=PUT" method="POST">
             <div>
-                <label for="title">Title</label>
+                <label for="title"><h6>Title:</h6></label>
+                <br />
                 <input
                     type="text"
                     id="title"
@@ -17,17 +16,38 @@
             </div>
             <br />
             <div>
-                <label for="character">Character</label>
+                <label for="description"><h6>Description:</h6></label>
+                <br />
+                <textarea
+                    name="anime[description]"
+                    id="description"
+                    cols="130"
+                    rows="10"
+                >
+<%= anime.description %>
+            </textarea
+                >
+            </div>
+            <br />
+            <div>
+                <label for="genre"><h6>Genre:</h6></label>
+                <br />
                 <input
                     type="text"
-                    id="character"
-                    name="anime[character]"
-                    value="<%= anime.character %>"
+                    id="genre"
+                    name="anime[genre]"
+                    value="<%= anime.genre %>"
                 />
             </div>
             <br />
-            <button>Update Anime</button>
+            <button class="btn btn-success">Update Anime</button>
+            <a
+                href="/animes/<%= anime._id %>"
+                role="button"
+                class="btn btn-danger"
+                >Cancel</a
+            >
         </form>
-        <a href="/animes/<%= anime._id %>">Back to Anime</a>
-    </body>
-</html>
+    </div>
+    <%- include("../partials/footer") %>
+</body>

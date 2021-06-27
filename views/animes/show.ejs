@@ -1,21 +1,79 @@
-<%- include("../partials/navbar") %> 
+<%- include("../partials/navbar") %>
 
-    <body>
-        <h1><%= anime.title %></h1>
-        <h2><%= anime.character %></h2>
-        <img src="<%= anime.image %> " alt="" style="width: 800px" />
-        <p><%= anime.description %></p>
-        <footer>
-            <a href="/animes/<%= anime._id %>/edit"> Edit </a>
+<body>
+    <h1><%= anime.title %></h1>
+    <h2><%= anime.genre %></h2>
+    <!-- <img src="<%= anime.image %>" alt="anime_img" style="width: 800px" /> -->
+    <img alt="anime_img" style="width: 800px" />
+    <p><%= anime.description %></p>
+    <footer class="row" style="margin-left: 3rem">
+        <a
+            class="btn btn-secondary col-1"
+            role="button"
+            href="/animes/<%= anime._id %>/edit"
+            style="width: 5rem"
+            >Edit</a
+        >
+        <!-- <br /> -->
+        <form
+            class="col-1"
+            action="/animes/<%= anime._id %>?_method=DELETE"
+            method="POST"
+        >
+            <button class="btn btn-secondary" type="submit">Delete</button>
+        </form>
+        <!-- <a href="/animes">All Animes</a> -->
+    </footer>
+    <!-- <img src="https://api.jikan.moe/v3/anime/1/pictures" alt="" /> -->
+    <div style="margin-left: 2rem">
+        <div class="row">
+            <div class="col-md-1" style="margin-right: -2rem">
+                <img
+                    src="../images/comments-48x48.png"
+                    alt="comments"
+                    style="width: 48px; height: 48px"
+                />
+            </div>
+            <div class="col-9"><h2 class="text-left">Comments</h2></div>
+            <div class="col-1">
+                <button type="button" class="btn btn-link text-nowrap" id="btn">
+                    Write a Comment?
+                </button>
+            </div>
             <br />
-            <form
-                action="/animes/<%= anime._id %>?_method=DELETE"
-                method="post"
-            >
-                <button>Delete</button>
-            </form>
-            <a href="/animes">All Animes</a>
-        </footer>
-        <img src="https://api.jikan.moe/v3/anime/1/pictures" alt="" />
-    </body>
-</html>
+        </div>
+        <form
+            action="/animes/<%= anime._id %>/reviews"
+            method="POST"
+            id="form"
+            style="display: none"
+        >
+            <!-- <label for="rating">Rating</label>
+                <input type="range" min="1" max="5" name="review[rating]" id="rating"> -->
+            <!-- <label for="body">Review: </label> -->
+            <textarea
+                name="review[body]"
+                id="body"
+                cols="90"
+                rows="6"
+            ></textarea>
+            <br />
+            <button type="submit" style="margin-left: 32.7rem">Submit</button>
+            <button type="button" id="cancel" style="margin-left: 1rem">
+                Cancel
+            </button>
+        </form>
+    </div>
+
+    <script>
+        $("#btn").click(function () {
+            $("#form").show();
+            $(this).hide();
+        });
+        $("#cancel").click(() => {
+            $("#form").hide();
+            $("#btn").show();
+        });
+    </script>
+    <%- include("../partials/footer") %>
+</body>

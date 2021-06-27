@@ -1,26 +1,26 @@
-<%- include("../partials/navbar") %> 
-    <body>
-        <h1>All Animes</h1>
-        <div>
-            <a href="/animes/new">Add Anime</a>
-        </div>
+<%- include("../partials/navbar") %>
+<body>
+    <h1>All Animes</h1>
+    <div>
+        <a href="/animes/new">Add Anime</a>
+    </div>
 
-        <% for (let anime of animes) {%>
-        <div id="parent-container">
-            <div id="child-container">
-                <div>
-                    <img src="<%= anime.image %>" alt="" />
-                </div>
-                <div class="text">
-                    <h1><%= anime.title %></h1>
-                    <p><%= anime.character %></p>
-                    <a class="button" href="/animes/<%= anime._id %>">
-                        View <%= anime.title %>
-                    </a>
-                </div>
+    <% for (let anime of animes) {%>
+    <div id="parent-container">
+        <div id="child-container">
+            <div>
+                <!-- <img src="<%= anime.image %>" alt="" /> -->
+                <img alt="anime_img" />
+            </div>
+            <div class="text">
+                <h1><%= anime.title %></h1>
+                <!-- <p><%= anime.character %></p> -->
+                <a class="button" href="/animes/<%= anime._id %>">
+                    View <%= anime.title %>
+                </a>
             </div>
         </div>
+    </div>
 
-        <% } %>
-    </body>
-</html>
+    <% } %> <%- include("../partials/footer") %>
+</body>

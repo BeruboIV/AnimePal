@@ -1,0 +1,13 @@
+.row {
+    margin-left: 10rem;
+}
+
+h2 {
+    color: #3b5998;
+}
+
+#title,
+#genre {
+    width: 60rem;
+    height: 1.5rem;
+}

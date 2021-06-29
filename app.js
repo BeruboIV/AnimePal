@@ -68,10 +68,10 @@ app.post(
 );
 
 app.post(
-    "/animes/:animeId/comment/:commentId",
+    "/animes/:animeId/comment/:parentCommentId",
     validateComment,
     catchAsync(async (req, res) => {
-        const comment = await Comment.findById(req.params.commentId);
+        const comment = await Comment.findById(req.params.parentCommentId);
         const subComment = new Comment(req.body.comment);
         subComment.parent = comment;
         comment.comments.push(subComment);

@@ -75,7 +75,7 @@ router.get(
                         <br />
                         <p style="margin-left: ${curr_level}rem;">${text}</p>
                         <form
-                        action="/animes/${animeId}/comment/${parent_comment_id}"
+                        action="/animes/${animeId}/comments/${parent_comment_id}"
                         method="POST"
                         class="${parent_comment_id}"
                         style="display: none; margin-left : ${

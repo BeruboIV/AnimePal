@@ -7,3 +7,13 @@ module.exports.animeSchema = Joi.object({
         description: Joi.string().required(),
     }).required(),
 });
+
+// anime : { title : "", genre : "", description : "" }
+
+module.exports.commentSchema = Joi.object({
+    comment: Joi.object({
+        body: Joi.string().required(),
+    }).required(),
+});
+
+// comment : { body : "" }

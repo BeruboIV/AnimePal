@@ -6,10 +6,10 @@ const AnimeSchema = new Schema({
     genre: String,
     image: String,
     description: String,
-    reviews: [
+    comments: [
         {
             type: Schema.Types.ObjectId,
-            ref: "Review",
+            ref: "Comment",
         },
     ],
 });

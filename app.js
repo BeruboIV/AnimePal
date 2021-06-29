@@ -4,15 +4,11 @@ const path = require("path");
 const mongoose = require("mongoose");
 const methodOverride = require("method-override");
 
-const Anime = require("./models/anime"); // Requiring the model
-const Comment = require("./models/comment");
-
 const catchAsync = require("./utils/catchAsync");
 const ExpressError = require("./utils/ExpressError");
 
-const { animeSchema, commentSchema } = require("./schemas.js");
-
 const animes = require("./routes/animes");
+const comments = require("./routes/comments");
 
 mongoose
     .connect("mongodb://localhost:27017/AnimePal", {
@@ -38,50 +34,12 @@ app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride("_method"));
 
 app.use("/animes", animes);
+app.use("/animes/:animeId/comments", comments);
 
 // Home page
 app.get("/", (req, res) => {
     res.render("home");
 });
-
-const validateComment = (req, res, next) => {
-    const { error } = commentSchema.validate(req.body);
-    if (error) {
-        const msg = error.details.map((el) => el.message).join(",");
-        throw new ExpressError(msg, 400);
-    } else {
-        next();
-    }
-};
-
-// Create a new comment
-app.post(
-    "/animes/:id/comments",
-    validateComment,
-    catchAsync(async (req, res) => {
-        const anime = await Anime.findById(req.params.id);
-        const comment = new Comment(req.body.comment);
-        anime.comments.push(comment);
-        await comment.save();
-        await anime.save();
-        res.redirect(`/animes/${anime._id}`);
-    })
-);
-
-// Add a sub-comment
-app.post(
-    "/animes/:animeId/comment/:parentCommentId",
-    validateComment,
-    catchAsync(async (req, res) => {
-        const comment = await Comment.findById(req.params.parentCommentId);
-        const subComment = new Comment(req.body.comment);
-        subComment.parent = comment;
-        comment.comments.push(subComment);
-        await subComment.save();
-        await comment.save();
-        res.redirect(`/animes/${req.params.animeId}`);
-    })
-);
 
 app.all("*", (req, res, next) => {
     next(new ExpressError("Page Not Found", 404));

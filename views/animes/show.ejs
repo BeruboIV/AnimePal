@@ -1,5 +1,5 @@
 <%- include("../partials/navbar") %>
-
+<link rel="stylesheet" href="/CSS/show.css" />
 <body>
     <h1><%= anime.title %></h1>
     <h2><%= anime.genre %></h2>
@@ -41,28 +41,17 @@
                 </button>
             </div>
             <br />
+            <!-- Parital to display new comment box -->
+            <%- include("../partials/new_comment") %>
+            <!-- <br /> -->
         </div>
-        <form
-            action="/animes/<%= anime._id %>/reviews"
-            method="POST"
-            id="form"
-            style="display: none"
-        >
-            <!-- <label for="rating">Rating</label>
-                <input type="range" min="1" max="5" name="review[rating]" id="rating"> -->
-            <!-- <label for="body">Review: </label> -->
-            <textarea
-                name="review[body]"
-                id="body"
-                cols="90"
-                rows="6"
-            ></textarea>
-            <br />
-            <button type="submit" style="margin-left: 32.7rem">Submit</button>
-            <button type="button" id="cancel" style="margin-left: 1rem">
-                Cancel
-            </button>
-        </form>
+    </div>
+    <div class="comments">
+        <br />
+        <% arr.forEach((ele) => { %> <%- ele %> <%-
+        include("../partials/new_comment") %>
+        <br />
+        <% }) %>
     </div>
 
     <script>
@@ -73,6 +62,15 @@
         $("#cancel").click(() => {
             $("#form").hide();
             $("#btn").show();
+        });
+        $(".comments").on("click", "button", function () {
+            if ($(this).hasClass("reply")) {
+                const classname = `.${this.id}`;
+                $(classname).show();
+            } else {
+                const classname = `.${this.id}`;
+                $(classname).hide();
+            }
         });
     </script>
     <%- include("../partials/footer") %>

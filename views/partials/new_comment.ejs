@@ -1,0 +1,22 @@
+<body>
+    <form
+        action="/animes/<%= anime._id %>/comments"
+        method="POST"
+        id="form"
+        style="display: none"
+    >
+        <textarea
+            name="comment[body]"
+            id="body"
+            cols="60"
+            rows="4"
+            required
+        ></textarea>
+        <br />
+        <button type="submit" style="margin-left: 19.1rem">Submit</button>
+        <button type="button" id="cancel" style="margin-left: 1rem">
+            Cancel
+        </button>
+    </form>
+    <%- include("./footer") %>
+</body>

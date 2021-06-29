@@ -54,6 +54,7 @@ const validateComment = (req, res, next) => {
     }
 };
 
+// Create a new comment
 app.post(
     "/animes/:id/comments",
     validateComment,
@@ -67,6 +68,7 @@ app.post(
     })
 );
 
+// Add a sub-comment
 app.post(
     "/animes/:animeId/comment/:parentCommentId",
     validateComment,

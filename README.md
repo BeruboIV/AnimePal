@@ -187,7 +187,7 @@ That is `fun3` be executed only after `func2` has been executed which on turn wa
 databaseCall(1) → databaseCall(2) → databaseCall(3) → databaseCall(4) → ... → databaseCall(N)
 ```
 
-The `for` loop method which I described above uses this logic only. [Link]()
+The `for` loop method which I described above uses this logic only.
 
 The Stack / Iterative version of DFS follows this procedure and hence gives the correct output.
 

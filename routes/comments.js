@@ -18,6 +18,7 @@ router.post(
         anime.comments.push(comment);
         await comment.save();
         await anime.save();
+        // console.log(req);
         req.flash("success", "Comment successfully posted");
         res.redirect(`/animes/${anime._id}`);
     })

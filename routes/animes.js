@@ -43,7 +43,9 @@ const arr = [];
 router.get(
     "/:id",
     catchAsync(async (req, res) => {
-        const anime = await Anime.findById(req.params.id).populate("author");
+        const anime = await Anime.findById(req.params.id)
+            .populate("comments")
+            .populate("author");
         if (!anime) {
             req.flash("error", "Page does not exist");
             return res.redirect("/animes");
@@ -61,24 +63,29 @@ router.get(
                 });
                 while (stack.length) {
                     const { parent_comment_id, curr_level } = stack.pop();
-                    const comment = await Comment.findById(parent_comment_id);
+                    const comment = await Comment.findById(
+                        parent_comment_id._id
+                    );
                     const text = comment.body;
-                    arr.push(
-                        `
+                    arr.push(`
                         <div>
-                        <button type="button" class="btn btn-link text-nowrap reply" id="${parent_comment_id}" style="margin-left: ${
-                            curr_level - 1
-                        }rem;">_Reply</button>
+                            <button type="button" class="btn btn-link text-nowrap reply" id="${
+                                parent_comment_id._id
+                            }" style="margin-left: ${
+                        curr_level - 1
+                    }rem;">_Reply</button>
                         <br />
                         <p style="margin-left: ${curr_level}rem; white-space: pre-wrap;">${text}</p>
                         <form
-                        action="/animes/${animeId}/comments/${parent_comment_id}"
+                        action="/animes/${animeId}/comments/${
+                        parent_comment_id._id
+                    }"
                         method="POST"
-                        class="${parent_comment_id}"
+                        class="${parent_comment_id._id}"
                         style="display: none; margin-left : ${
                             curr_level + 5
                         }rem"
-                    >
+                        >
                         <textarea
                             name="comment[body]"
                             id="body"
@@ -88,13 +95,14 @@ router.get(
                         ></textarea>
                         <br />
                         <button type="submit" style="margin-left: 19.1rem">Submit</button>
-                        <button type="button" id="${parent_comment_id}" style="margin-left: 1rem">
+                        <button type="button" id="${
+                            parent_comment_id._id
+                        }" style="margin-left: 1rem">
                             Cancel
                         </button>
                     </form>
                         </div>
-                    `
-                    );
+                    `);
                     let n = comment.comments.length;
                     for (let i = n - 1; i >= 0; i--) {
                         stack.push({

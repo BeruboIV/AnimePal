@@ -94,6 +94,7 @@
         $(".comments").on("click", "button", function () {
             if ($(this).hasClass("reply")) {
                 const classname = `.${this.id}`;
+                console.log(classname);
                 $(classname).show();
             } else {
                 const classname = `.${this.id}`;

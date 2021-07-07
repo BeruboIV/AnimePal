@@ -67,16 +67,22 @@ router.get(
                     // For a sub-comment created, we need to send the information to /animes/:animeId/comments/:parent_comment
                     // Here parent_comment is the current comment on which the user click reply.
                     // A better name would have been current_comment instead of parent_comment, what do you think?
-                    arr.push(`
-                        <div>
-                            <div style="display:flex; flex-wrap : wrap; margin-left: ${curr_level}rem;">
-                                <div style="height : 50px; width : 80px">
-                                    <img src="../images/no-title.jpg" alt="img" style="width:75px; height:55px"/>
-                                    <p>${comment.username ? comment.username : "Anonymous"}</p>
-                                </div>
-                                <div style="margin-left : 40px;">
-                                    <button type="button" class="btn btn-link text-nowrap reply" id="${parent_comment._id}">_Reply</button>
-                                    <br />
+                    let comment_string = `
+                            <div>
+                                <div style="display:flex; flex-wrap : wrap; margin-left: ${curr_level}rem;">
+                                    <div style="height : 50px; width : 80px">
+                                        <img src="../images/no-title.jpg" alt="img" style="width:75px; height:55px"/>
+                                        <p>${comment.username ? comment.username : "Anonymous"}</p>
+                                    </div>
+                                    <div style="margin-left : 40px;">`;
+                    if(req.user){
+                        comment_string += `<button type="button" class="btn btn-link text-nowrap reply" id="${parent_comment._id}">_Reply</button>`;
+                    }
+                    else{
+                        comment_string += `<a href="/login">_Reply</a>`;
+                    }
+                    comment_string +=
+                                    `<br />
                                     <p style="white-space: pre-wrap;">${text}</p>
                                 </div>
                             </div>
@@ -99,8 +105,8 @@ router.get(
                                     Cancel
                                 </button>
                             </form>
-                        </div>
-                    `);
+                        </div>`;
+                    arr.push(comment_string);
                     let n = comment.comments.length;
                     for (let i = n - 1; i >= 0; i--) {
                         stack.push({

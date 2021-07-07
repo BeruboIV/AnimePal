@@ -13,9 +13,8 @@ const commentSchema = new Schema({
             ref: "Comment",
         },
     ],
-    author: {
-        type: Schema.Types.ObjectId,
-        ref: "User",
+    username: {
+        type: String,
     },
 });
 

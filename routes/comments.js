@@ -15,6 +15,7 @@ router.post(
     catchAsync(async (req, res) => {
         const anime = await Anime.findById(req.params.animeId);
         const comment = new Comment(req.body.comment);
+        comment.username = req.user.username;
         anime.comments.push(comment);
         await comment.save();
         await anime.save();
@@ -38,6 +39,7 @@ router.post(
         const comment = await Comment.findById(req.params.parentCommentId);
         const subComment = new Comment(req.body.comment);
         subComment.parent = comment;
+        subComment.username = req.user.username;
         comment.comments.push(subComment);
         await subComment.save();
         await comment.save();

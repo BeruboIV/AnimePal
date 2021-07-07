@@ -67,38 +67,48 @@ router.get(
                     const text = comment.body;
                     arr.push(`
                         <div>
-                            <button type="button" class="btn btn-link text-nowrap reply" id="${
-                                parent_comment._id
-                            }" style="margin-left: ${
-                        curr_level - 1
-                    }rem;">_Reply</button>
-                        <br />
-                        <p style="margin-left: ${curr_level}rem; white-space: pre-wrap;">${text}</p>
-                        <form
-                        action="/animes/${animeId}/comments/${
+                            <div style="display:flex; flex-wrap : wrap; margin-left: ${curr_level}rem;">
+                                <div style="height : 50px; width : 80px">
+                                    <img src="../images/no-title.jpg" alt="img" style="width:75px; height:55px"/>
+                                    <p>${
+                                        comment.username
+                                            ? comment.username
+                                            : "Anonymous"
+                                    }</p>
+                                </div>
+                                <div style="margin-left : 40px;">
+                                    <button type="button" class="btn btn-link text-nowrap reply" id="${
+                                        parent_comment._id
+                                    }">_Reply</button>
+                                    <br />
+                                    <p style="white-space: pre-wrap;">${text}</p>
+                                </div>
+                            </div>
+                            <form
+                            action="/animes/${animeId}/comments/${
                         parent_comment._id
                     }"
-                        method="POST"
-                        class="${parent_comment._id}"
-                        style="display: none; margin-left : ${
-                            curr_level + 5
-                        }rem"
-                        >
-                        <textarea
-                            name="comment[body]"
-                            id="body"
-                            cols="60"
-                            rows="4"
-                            required
-                        ></textarea>
-                        <br />
-                        <button type="submit" style="margin-left: 19.1rem">Submit</button>
-                        <button type="button" id="${
-                            parent_comment._id
-                        }" style="margin-left: 1rem">
-                            Cancel
-                        </button>
-                    </form>
+                            method="POST"
+                            class="${parent_comment._id}"
+                            style="display: none; margin-left : ${
+                                curr_level + 5
+                            }rem"
+                            >
+                                <textarea
+                                    name="comment[body]"
+                                    id="body"
+                                    cols="60"
+                                    rows="4"
+                                    required
+                                ></textarea>
+                                <br />
+                                <button type="submit" style="margin-left: 19.1rem">Submit</button>
+                                <button type="button" id="${
+                                    parent_comment._id
+                                }" style="margin-left: 1rem">
+                                    Cancel
+                                </button>
+                            </form>
                         </div>
                     `);
                     let n = comment.comments.length;

@@ -13,6 +13,10 @@ const commentSchema = new Schema({
             ref: "Comment",
         },
     ],
+    author: {
+        type: Schema.Types.ObjectId,
+        ref: "User",
+    },
 });
 
 module.exports = new mongoose.model("Comment", commentSchema);

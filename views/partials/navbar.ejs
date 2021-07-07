@@ -48,9 +48,18 @@
         }
     </style>
 </html>
-<nav>
-    <a href="#" style="opacity: 1">YelpAnime</a>
-    <a href="/" class="home">Home</a>
-    <a href="/animes" class="home">Animes</a>
-    <a href="/animes/new" class="home">New Anime</a>
-</nav>
+<body>
+    <nav>
+        <a href="#" style="opacity: 1">YelpAnime</a>
+        <a href="/" class="home">Home</a>
+        <a href="/animes" class="home">Animes</a>
+        <a href="/animes/new" class="home">New Anime</a>
+        <% if(!currentUser) {%>
+        <a href="/login" class="home" style="margin-left: 50rem">Login</a>
+        <a href="/register" class="home">Register</a>
+        <% } else { %>
+        <a href="/logout" class="home" style="margin-left: 55rem">Logout</a>
+        <% } %>
+    </nav>
+    <%- include("./flash") %>
+</body>

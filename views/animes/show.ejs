@@ -10,19 +10,9 @@
     </div>
     <% if(currentUser && anime.author.equals(currentUser._id)) { %>
     <footer class="row" style="margin-left: 80px">
-        <a
-            class="btn btn-info col-1"
-            role="button"
-            href="/animes/<%= anime._id %>/edit"
-            style="width: 5rem"
-            >Edit</a
-        >
+        <a class="btn btn-info col-1" role="button" href="/animes/<%= anime._id %>/edit" style="width: 5rem">Edit</a>
         <!-- <br /> -->
-        <form
-            class="col-1"
-            action="/animes/<%= anime._id %>?_method=DELETE"
-            method="POST"
-        >
+        <form class="col-1" action="/animes/<%= anime._id %>?_method=DELETE" method="POST">
             <button class="btn btn-danger" type="submit">Delete</button>
         </form>
         <!-- <a href="/animes">All Animes</a> -->
@@ -30,39 +20,25 @@
     <% } %>
     <div class="flex-box">
         <div class="flex-child">
-            <img
-                src="../images/user_16x16.png"
-                alt="user"
-                style="width: 16px; height: 16px"
-            />
+            <img src="../images/user_16x16.png" alt="user" style="width: 16px; height: 16px" />
         </div>
         <div class="flex-child">
             <p><%= anime.author.username %></p>
         </div>
         <div class="flex-child">
-            <img
-                src="../images/date_16x16.png"
-                alt="date"
-                style="width: 16px; height: 16px"
-            />
+            <img src="../images/date_16x16.png" alt="date" style="width: 16px; height: 16px" />
         </div>
     </div>
     <!-- <img src="https://api.jikan.moe/v3/anime/1/pictures" alt="" /> -->
     <div style="margin-left: 80px">
         <div class="row">
             <div class="col-md-1" style="margin-right: -2rem">
-                <img
-                    src="../images/comments-48x48.png"
-                    alt="comments"
-                    style="width: 48px; height: 48px"
-                />
+                <img src="../images/comments-48x48.png" alt="comments" style="width: 48px; height: 48px" />
             </div>
             <div class="col-7"><h2 class="text-left">Comments</h2></div>
             <div class="col-1" style="margin-left: 100px">
                 <% if(currentUser) { %>
-                <button type="button" class="btn btn-link text-nowrap" id="btn">
-                    Write a Comment?
-                </button>
+                <button type="button" class="btn btn-link text-nowrap" id="btn">Write a Comment?</button>
                 <% } else { req.session.returnTo = req.originalUrl%>
                 <div style="width: 150px">
                     <a href="/login">Write a Comment?</a>

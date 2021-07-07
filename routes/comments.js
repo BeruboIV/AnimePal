@@ -15,6 +15,7 @@ router.post(
     catchAsync(async (req, res) => {
         const anime = await Anime.findById(req.params.animeId);
         const comment = new Comment(req.body.comment);
+        comment.parent = comment;
         comment.username = req.user.username;
         anime.comments.push(comment);
         await comment.save();

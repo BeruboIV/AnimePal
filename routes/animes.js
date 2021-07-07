@@ -44,8 +44,7 @@ router.get(
     "/:id",
     catchAsync(async (req, res) => {
         const anime = await Anime.findById(req.params.id)
-            .populate("comments")
-            .populate("author");
+        .populate("author");
         if (!anime) {
             req.flash("error", "Page does not exist");
             return res.redirect("/animes");
@@ -65,34 +64,27 @@ router.get(
                     const { parent_comment, curr_level } = stack.pop();
                     const comment = await Comment.findById(parent_comment._id);
                     const text = comment.body;
+                    // For a sub-comment created, we need to send the information to /animes/:animeId/comments/:parent_comment
+                    // Here parent_comment is the current comment on which the user click reply.
+                    // A better name would have been current_comment instead of parent_comment, what do you think?
                     arr.push(`
                         <div>
                             <div style="display:flex; flex-wrap : wrap; margin-left: ${curr_level}rem;">
                                 <div style="height : 50px; width : 80px">
                                     <img src="../images/no-title.jpg" alt="img" style="width:75px; height:55px"/>
-                                    <p>${
-                                        comment.username
-                                            ? comment.username
-                                            : "Anonymous"
-                                    }</p>
+                                    <p>${comment.username ? comment.username : "Anonymous"}</p>
                                 </div>
                                 <div style="margin-left : 40px;">
-                                    <button type="button" class="btn btn-link text-nowrap reply" id="${
-                                        parent_comment._id
-                                    }">_Reply</button>
+                                    <button type="button" class="btn btn-link text-nowrap reply" id="${parent_comment._id}">_Reply</button>
                                     <br />
                                     <p style="white-space: pre-wrap;">${text}</p>
                                 </div>
                             </div>
                             <form
-                            action="/animes/${animeId}/comments/${
-                        parent_comment._id
-                    }"
+                            action="/animes/${animeId}/comments/${parent_comment._id}"
                             method="POST"
                             class="${parent_comment._id}"
-                            style="display: none; margin-left : ${
-                                curr_level + 5
-                            }rem"
+                            style="display: none; margin-left : ${curr_level + 5}rem"
                             >
                                 <textarea
                                     name="comment[body]"
@@ -103,9 +95,7 @@ router.get(
                                 ></textarea>
                                 <br />
                                 <button type="submit" style="margin-left: 19.1rem">Submit</button>
-                                <button type="button" id="${
-                                    parent_comment._id
-                                }" style="margin-left: 1rem">
+                                <button type="button" id="${parent_comment._id}" style="margin-left: 1rem">
                                     Cancel
                                 </button>
                             </form>

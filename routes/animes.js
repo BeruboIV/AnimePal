@@ -58,19 +58,17 @@ router.get(
                 const animeId = req.params.id;
                 const stack = [];
                 stack.push({
-                    parent_comment_id: id,
+                    parent_comment: id,
                     curr_level: 2,
                 });
                 while (stack.length) {
-                    const { parent_comment_id, curr_level } = stack.pop();
-                    const comment = await Comment.findById(
-                        parent_comment_id._id
-                    );
+                    const { parent_comment, curr_level } = stack.pop();
+                    const comment = await Comment.findById(parent_comment._id);
                     const text = comment.body;
                     arr.push(`
                         <div>
                             <button type="button" class="btn btn-link text-nowrap reply" id="${
-                                parent_comment_id._id
+                                parent_comment._id
                             }" style="margin-left: ${
                         curr_level - 1
                     }rem;">_Reply</button>
@@ -78,10 +76,10 @@ router.get(
                         <p style="margin-left: ${curr_level}rem; white-space: pre-wrap;">${text}</p>
                         <form
                         action="/animes/${animeId}/comments/${
-                        parent_comment_id._id
+                        parent_comment._id
                     }"
                         method="POST"
-                        class="${parent_comment_id._id}"
+                        class="${parent_comment._id}"
                         style="display: none; margin-left : ${
                             curr_level + 5
                         }rem"
@@ -96,7 +94,7 @@ router.get(
                         <br />
                         <button type="submit" style="margin-left: 19.1rem">Submit</button>
                         <button type="button" id="${
-                            parent_comment_id._id
+                            parent_comment._id
                         }" style="margin-left: 1rem">
                             Cancel
                         </button>
@@ -106,7 +104,7 @@ router.get(
                     let n = comment.comments.length;
                     for (let i = n - 1; i >= 0; i--) {
                         stack.push({
-                            parent_comment_id: comment.comments[i],
+                            parent_comment: comment.comments[i],
                             curr_level: curr_level + 5,
                         });
                     }

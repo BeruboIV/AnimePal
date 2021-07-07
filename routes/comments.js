@@ -5,7 +5,7 @@ const catchAsync = require("../utils/catchAsync");
 const Anime = require("../models/anime"); // Requiring the model
 const Comment = require("../models/comment");
 
-const { validateComment, isLoggedIn } = require("../middleware");
+const { validateComment, isLoggedIn, changeUrl } = require("../middleware");
 
 // Create a new comment
 router.post(
@@ -18,15 +18,20 @@ router.post(
         anime.comments.push(comment);
         await comment.save();
         await anime.save();
-        // console.log(req);
         req.flash("success", "Comment successfully posted");
         res.redirect(`/animes/${anime._id}`);
     })
 );
 
+// const changeUrl = (req, res, next) => {
+//     req.originalUrl = "/animes/" + req.params.animeId;
+//     next();
+// };
+
 // Add a sub-comment
 router.post(
     "/:parentCommentId",
+    changeUrl,
     isLoggedIn,
     validateComment,
     catchAsync(async (req, res) => {

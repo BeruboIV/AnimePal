@@ -45,3 +45,8 @@ module.exports.validateComment = (req, res, next) => {
         next();
     }
 };
+
+module.exports.changeUrl = (req, res, next) => {
+    req.originalUrl = "/animes/" + req.params.animeId;
+    next();
+};
